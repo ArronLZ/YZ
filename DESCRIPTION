@@ -1,0 +1,35 @@
+Package: YZ
+Title: The pipeline of Tumor Survival information relatead analysis and shiny web
+Version: 0.0.5
+Date: `Sys.Date()`
+Author: LZ
+Maintainer: Turkey <earth_farmer@outlook.com>
+Description: Surv pipeline and shiny web.
+License: Artistic-2.0
+Encoding: UTF-8
+LazyData: false
+RoxygenNote: 7.2.3
+VignetteBuilder: knitr
+Suggests: 
+    BiocStyle,
+    knitr,
+    rmarkdown,
+    prettydoc,
+    scales
+Imports:
+    survminer,
+    survival,
+    stats,
+    LZ,
+    R6
+Depends:
+    dplyr,
+    ggplot2,
+    ggpubr,
+    ggsci
+Collate: 
+    'DataObject.R'
+    'R6_DEres.R'
+    'R6_DEeset.R'
+    'ggtheme.R'
+    'surv.R'

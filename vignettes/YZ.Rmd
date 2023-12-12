@@ -1,0 +1,47 @@
+---
+title: "YZ Document"
+shorttitle: "Surv analysis pipeline & some important and useful function"
+author:
+- name: "Author: Jiang"
+  affiliation: "Affiliation: Diploma Mill"
+date: "`r Sys.Date()`"
+abstract: 预后生存套路流程 和 一些实用小函数
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    css: p.css
+    toc: yes
+    toc_depth: 4
+  pdf_document:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{User-friendly RNAseq analysis pipeline}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
+### 1. 预后生存套路
+#### 1.1 加载包
+
+### 2. 实用函数
+#### 1. Class()函数
+一个重要的数据类型构建函数，采用拟面向对象设计原理，将数据存在封装在一个环境中，对每个新增加的数据分配一个说明信息，并在该环境中内构一些函数来查看、操作内部数据。这个“类”函数主要用来存储一些大型项目中许多的容易产生混淆的中间数据。
+```{r eval=FALSE}
+T_DATA <- Class()
+T_DATA$catinfo()
+T_DATA$new(T_DATA, "id", 1000, "tnbc差异相分离基因SYMOBOL列表")
+T_DATA$new(envir = T_DATA, variable = "id", value = 1000, info = "hacd")
+T_DATA$id
+```
+
+#### 2. ggplot画图主题优化函数
+设计规范如下:
+
+* `ggtheme.update`开头的系列函数，为更新图形的主题外观，例如`ggtheme.update.text`主要为调整图形字体，以此类推。
+
+* `ggtheme.add`开头的系列函数，为图形增加一些新的元素，例如`ggtheme.add.stat`是给图形添加统计检验。
+
+* `ggtheme.set`开头的系列函数，为笔记提示作用，该系列函数为半成品，建议不要直接使用，请使用函数名本身去掉括号后查看源码然后复制使用，例如`ggtheme.set.y`为提示怎么设置y轴刻度的一些控制，使用`ggtheme.set.y`然后回车查看源码（不要带括号）。
+
