@@ -5,6 +5,7 @@
 #' @importFrom LZ DEG_DESeq2.pca
 #' @importFrom LZ DEG_DESeq2.ana
 #' @importFrom LZ DEGres_ToRICH
+#' @importFrom dplyr arrange
 #' @include R6_DEres.R
 #' @export
 #' @author Jiang
@@ -71,7 +72,7 @@ DEeset <- R6Class("DEeset",
                                                          suffix1 = suffix1,
                                                          suffix2 = suffix2,
                                                          endT=endT, endF=endF)
-                          group <- group[order(group[,1]), ]
+                          group <- dplyr::arrange(group, Type)
                           self$group <- group
                           self$eset2 <- self$eset[, rownames(group)]
                       },
