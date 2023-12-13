@@ -15,6 +15,9 @@ DEeset <- R6Class("DEeset",
                       #' @field eset dataframe a exprs eset dataframe for different gene anlaysis, \cr
                       #'  col: gene, rownames: samples
                       eset=NA,
+                      #' @field eset2 dataframe a clean dataframe from `eset` by updateGroup for different gene anlaysis\cr
+                      #'  col: gene, rownames: samples
+                      eset2 = NA,
                       #' @field group dataframe a phen dataframe for different gene anlaysis, \cr
                       #'  the first col: Type, rownames: samples
                       group=NA,
@@ -64,10 +67,12 @@ DEeset <- R6Class("DEeset",
                       #' @return no return, just update object's field group
                       updateGroup = function(suffix1 = "01A", suffix2 = "11A",
                                              endT="Tumor", endF="Normal") {
-                          self$group <- private$esetMakeGroup(eset = self$eset,
-                                                              suffix1 = suffix1,
-                                                              suffix2 = suffix2,
-                                                              endT=endT, endF=endF)
+                          group <- private$esetMakeGroup(eset = self$eset,
+                                                         suffix1 = suffix1,
+                                                         suffix2 = suffix2,
+                                                         endT=endT, endF=endF)
+                          self$group <- group
+                          self$eset2 <- self$eset[, rownames(group)]
                       },
                       #' DEG analysis pipleline
                       #' @description DEG analysis pipeline, DESeq2 deg analysis, plot pca, prepare GSEA

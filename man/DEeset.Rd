@@ -17,6 +17,9 @@ Jiang
 \item{\code{eset}}{dataframe a exprs eset dataframe for different gene anlaysis, \cr
 col: gene, rownames: samples}
 
+\item{\code{eset2}}{dataframe a clean dataframe from `eset` by updateGroup for different gene anlaysis\cr
+col: gene, rownames: samples}
+
 \item{\code{group}}{dataframe a phen dataframe for different gene anlaysis, \cr
 the first col: Type, rownames: samples}
 

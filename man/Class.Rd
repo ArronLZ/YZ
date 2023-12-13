@@ -16,9 +16,19 @@ enviroment(DataClass)
 Set an new environment to store important data in a project
 }
 \examples{
-# T_DATA <- Class()
-# T_DATA$catinfo()
-# T_DATA$new(T_DATA, "id", 1000, "tnbc差异相分离基因SYMOBOL列表")
-# T_DATA$new(envir = T_DATA, variable = "id", value = 1000, info = "hacd")
-# T_DATA$id
+# # create DATA
+# AA <- Class(class = "AA")
+#
+# # list info
+# AA$catinfo()
+#
+# # add variable
+# AA$new(T_DATA, "id", 1000, "X SYMOBOL list")
+# AA$new(envir = T_DATA, variable = "id", value = 1000, info = "hacd")
+#
+# # list variable
+# AA$id
+#
+# # delete variable
+# AA$delete(XENADB, "phen")
 }

@@ -21,7 +21,8 @@ Imports:
     survival,
     stats,
     LZ,
-    R6
+    R6,
+    data.table
 Depends:
     dplyr,
     ggplot2,
@@ -33,3 +34,4 @@ Collate:
     'R6_DEeset.R'
     'ggtheme.R'
     'surv.R'
+    'xena_flow.R'

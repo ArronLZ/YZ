@@ -4,11 +4,22 @@
 #' @return enviroment(DataClass)
 #' @export
 #'
-#' @examples # T_DATA <- Class()
-#' # T_DATA$catinfo()
-#' # T_DATA$new(T_DATA, "id", 1000, "tnbc差异相分离基因SYMOBOL列表")
-#' # T_DATA$new(envir = T_DATA, variable = "id", value = 1000, info = "hacd")
-#' # T_DATA$id
+#' @examples
+#' # # create DATA
+#' # AA <- Class(class = "AA")
+#' #
+#' # # list info
+#' # AA$catinfo()
+#' #
+#' # # add variable
+#' # AA$new(T_DATA, "id", 1000, "X SYMOBOL list")
+#' # AA$new(envir = T_DATA, variable = "id", value = 1000, info = "hacd")
+#' #
+#' # # list variable
+#' # AA$id
+#' #
+#' # # delete variable
+#' # AA$delete(XENADB, "phen")
 Class <- function(class) {
     Class <- function() {
         # # 结构化保存项目数据（重要数据）
@@ -17,7 +28,7 @@ Class <- function(class) {
         # 用法
         # T_DATA <- Class()
         # T_DATA$catinfo()
-        # T_DATA$new(T_DATA, "id", 1000, "tnbc差异相分离基因SYMOBOL列表")
+        # T_DATA$new(T_DATA, "id", 1000, "X SYMOBOL list")
         # T_DATA$new(envir = T_DATA, variable = "id", value = 1000, info = "hacd")
         # T_DATA$id
         privateLZ <- new.env(parent = emptyenv())
