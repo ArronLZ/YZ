@@ -71,6 +71,7 @@ DEeset <- R6Class("DEeset",
                                                          suffix1 = suffix1,
                                                          suffix2 = suffix2,
                                                          endT=endT, endF=endF)
+                          group <- group[order(group[,1]), ]
                           self$group <- group
                           self$eset2 <- self$eset[, rownames(group)]
                       },
