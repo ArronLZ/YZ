@@ -13,7 +13,7 @@ DEeset <- R6Class("DEeset",
                   public = list(
                       #' @field mark character the object name.
                       mark=NA,
-                      #' @field eset dataframe a exprs eset dataframe for different gene anlaysis, \cr
+                      #' @field eset dataframe a exprs eset dataframe, \cr
                       #'  col: gene, rownames: samples
                       eset=NA,
                       #' @field eset2 dataframe a clean dataframe from `eset` by updateGroup for different gene anlaysis\cr
@@ -137,7 +137,7 @@ DEeset <- R6Class("DEeset",
                           outdirsub <- paste0(outdir, "/", f_mark)
                           outdirsub.gsea <- paste0(outdirsub, "/gsea")
                           outdirsub.rich <- paste0(outdirsub, "/rich")
-                          glist <- list(eset = self$eset, group = self$group,
+                          glist <- list(eset = self$eset2, group = self$group,
                                         f_mark = f_mark)
                           if (method == "deseq2") {
                               dds <- DEG_DESeq2.dds(exprset.group=glist, batch = F)

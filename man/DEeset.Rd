@@ -14,7 +14,7 @@ Jiang
 \describe{
 \item{\code{mark}}{character the object name.}
 
-\item{\code{eset}}{dataframe a exprs eset dataframe for different gene anlaysis, \cr
+\item{\code{eset}}{dataframe a exprs eset dataframe, \cr
 col: gene, rownames: samples}
 
 \item{\code{eset2}}{dataframe a clean dataframe from `eset` by updateGroup for different gene anlaysis\cr
