@@ -156,7 +156,8 @@ DEeset <- R6Class("DEeset",
                                                       mark=f_mark,
                                                       outdir = outdirsub.rich)
                           # 构建GSEA官网软件分析所需格式文件
-                          DEGres_ToGSEA(diffan.obj = dds_list, outdir = outdirsub.gsea) # 此处有warning，不用管。
+                          DEGres_ToGSEA(diffan.obj = dds_list, outdir = outdirsub.gsea,
+                                        startcol = 8, txt.del=T) # 此处有warning，不用管。
                           return(all_father)
                       }
                   )
