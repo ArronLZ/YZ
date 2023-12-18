@@ -110,14 +110,14 @@ DEres <- R6Class("DEres",
                                           rapid = T,
                                           GO_database = 'org.Hs.eg.db',
                                           KEGG_database = 'hsa') {
-                         GO_database <- GO_database
-                         KEGG_database <- KEGG_database
                          re <- private$lzENRICH(genelist.filter = genelist.filter,
                                                 outdir = outdir,
                                                 glist.save = glist.save,
                                                 rungo = rungo,
                                                 runkegg = runkegg,
-                                                rapid = rapid)
+                                                rapid = rapid,
+                                                GO_database = GO_database,
+                                                KEGG_database = GO_database)
                          return(re)
                      }
                  ),
@@ -128,11 +128,14 @@ DEres <- R6Class("DEres",
                          return(gogenelist)
                      },
                      lzENRICH = function(genelist.filter,
-                                          outdir,
-                                          glist.save = T,
-                                          rungo = T,
-                                          runkegg = T,
-                                          rapid = T) {
+                                         outdir,
+                                         glist.save = T,
+                                         rungo = T,
+                                         runkegg = T,
+                                         rapid = T,
+                                         GO_database = 'org.Hs.eg.db',
+                                         KEGG_database = 'hsa'
+                                         ) {
                          if (!missing(genelist.filter)) {
                              stopifnot(is.numeric(genelist.filter))
                          }
@@ -145,6 +148,8 @@ DEres <- R6Class("DEres",
                          } else {
                              genelist <- self$glist.deg.multi[genelist.filter]
                          }
+                         GO_database <- GO_database
+                         KEGG_database <- KEGG_database
                          enrich <- DEG_runENRICH(genelist = genelist,
                                                  outdir = outdir,
                                                  glist.save = glist.save,
