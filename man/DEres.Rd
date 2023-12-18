@@ -170,8 +170,9 @@ run GO analysis in batches(upgene, downgene, allgene) and write result to xlsx
   rungo = T,
   runkegg = T,
   rapid = T,
-  GO_database = "org.Hs.eg.db",
-  KEGG_database = "hsa"
+  orgdb = "org.Hs.eg.db",
+  org_kegg = "hsa",
+  sigNodes = 20
 )}\if{html}{\out{</div>}}
 }
 
@@ -190,9 +191,11 @@ run GO analysis in batches(upgene, downgene, allgene) and write result to xlsx
 
 \item{\code{rapid}}{loggicla defaut is F, if set F, the function will plot go tree picture, which make cost much time}
 
-\item{\code{GO_database}}{character, GO_database, default is 'org.Hs.eg.db'}
+\item{\code{orgdb}}{character deafult is "org.Hs.eg.db"}
 
-\item{\code{KEGG_database}}{character, KEGG_database, default is 'hsa'}
+\item{\code{org_kegg}}{character deafult is "hsa"}
+
+\item{\code{sigNodes}}{number deafult is 20, go tree plot controls}
 }
 \if{html}{\out{</div>}}
 }
