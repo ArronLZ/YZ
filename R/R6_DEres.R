@@ -99,25 +99,28 @@ DEres <- R6Class("DEres",
                      #' @param glist.save logical default is TRUE, wether save genelist
                      #' @param rungo logical default is TRUE, wether run go analysis
                      #' @param runkegg logical default is TRUE, wether run kegg analysis
+                     #' @param orgdb character deafult is "org.Hs.eg.db"
+                     #' @param org_kegg character deafult is "hsa"
+                     #' @param sigNodes number deafult is 20, go tree plot controls
                      #' @param rapid loggicla defaut is F, if set F, the function will plot go tree picture, which make cost much time
-                     #' @param GO_database character, GO_database, default is 'org.Hs.eg.db'
-                     #' @param KEGG_database character, KEGG_database, default is 'hsa'
                      runENRICH = function(genelist.filter,
                                           outdir,
                                           glist.save = T,
                                           rungo = T,
                                           runkegg = T,
                                           rapid = T,
-                                          GO_database = 'org.Hs.eg.db',
-                                          KEGG_database = 'hsa') {
+                                          orgdb = "org.Hs.eg.db",
+                                          org_kegg='hsa',
+                                          sigNodes=20) {
                          re <- private$lzENRICH(genelist.filter = genelist.filter,
                                                 outdir = outdir,
                                                 glist.save = glist.save,
                                                 rungo = rungo,
                                                 runkegg = runkegg,
                                                 rapid = rapid,
-                                                GO_database = GO_database,
-                                                KEGG_database = GO_database)
+                                                orgdb = orgdb,
+                                                org_kegg=org_kegg,
+                                                sigNodes=sigNodes)
                          return(re)
                      }
                  ),
@@ -133,8 +136,9 @@ DEres <- R6Class("DEres",
                                          rungo = T,
                                          runkegg = T,
                                          rapid = T,
-                                         GO_database = 'org.Hs.eg.db',
-                                         KEGG_database = 'hsa'
+                                         orgdb = "org.Hs.eg.db",
+                                         org_kegg='hsa',
+                                         sigNodes=20
                                          ) {
                          if (!missing(genelist.filter)) {
                              stopifnot(is.numeric(genelist.filter))
@@ -148,13 +152,14 @@ DEres <- R6Class("DEres",
                          } else {
                              genelist <- self$glist.deg.multi[genelist.filter]
                          }
-                         GO_database <- GO_database
-                         KEGG_database <- KEGG_database
                          enrich <- DEG_runENRICH(genelist = genelist,
                                                  outdir = outdir,
                                                  glist.save = glist.save,
                                                  rungo = rungo, runkegg = runkegg,
-                                                 rapid = runkegg)
+                                                 rapid = runkegg,
+                                                 orgdb = orgdb,
+                                                 org_kegg=org_kegg,
+                                                 sigNodes=sigNodes)
                          return(enrich)
                      }
                  )
