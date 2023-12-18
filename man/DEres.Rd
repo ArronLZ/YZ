@@ -39,6 +39,7 @@ such as [p<0.01, q<0.1] logfc > log2(1.2) log2(1.5) 1 2 3 \cr
 \item \href{#method-DEres-new}{\code{DEres$new()}}
 \item \href{#method-DEres-update.glist.deg.multi}{\code{DEres$update.glist.deg.multi()}}
 \item \href{#method-DEres-pic.valcano}{\code{DEres$pic.valcano()}}
+\item \href{#method-DEres-runENRICH}{\code{DEres$runENRICH()}}
 \item \href{#method-DEres-clone}{\code{DEres$clone()}}
 }
 }
@@ -152,6 +153,46 @@ plot valcano with mask gene using valcano2
 \item{\code{shape}}{number the picture point shape, default 16, or 1 ...}
 
 \item{\code{alpha}}{number the transpate of picture, default 0.9}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DEres-runENRICH"></a>}}
+\if{latex}{\out{\hypertarget{method-DEres-runENRICH}{}}}
+\subsection{Method \code{runENRICH()}}{
+run GO analysis in batches(upgene, downgene, allgene) and write result to xlsx
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DEres$runENRICH(
+  genelist.filter,
+  outdir,
+  glist.save = T,
+  rungo = T,
+  runkegg = T,
+  rapid = T,
+  GO_database = "org.Hs.eg.db",
+  KEGG_database = "hsa"
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{genelist.filter}}{number(n) or missing, select which fclist to run enrich anlaysis}
+
+\item{\code{outdir}}{character, the output dir}
+
+\item{\code{glist.save}}{logical default is TRUE, wether save genelist}
+
+\item{\code{rungo}}{logical default is TRUE, wether run go analysis}
+
+\item{\code{runkegg}}{logical default is TRUE, wether run kegg analysis}
+
+\item{\code{rapid}}{loggicla defaut is F, if set F, the function will plot go tree picture, which make cost much time}
+
+\item{\code{GO_database}}{character, GO_database, default is 'org.Hs.eg.db'}
+
+\item{\code{KEGG_database}}{character, KEGG_database, default is 'hsa'}
 }
 \if{html}{\out{</div>}}
 }

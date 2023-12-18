@@ -92,6 +92,33 @@ DEres <- R6Class("DEres",
                                                 color.down = color.down, ymax = ymax, size=size,
                                                 shape=shape, alpha = alpha)
                          return(pic.l)
+                     },
+                     #' @description run GO analysis in batches(upgene, downgene, allgene) and write result to xlsx
+                     #' @param genelist.filter number(n) or missing, select which fclist to run enrich anlaysis
+                     #' @param outdir character, the output dir
+                     #' @param glist.save logical default is TRUE, wether save genelist
+                     #' @param rungo logical default is TRUE, wether run go analysis
+                     #' @param runkegg logical default is TRUE, wether run kegg analysis
+                     #' @param rapid loggicla defaut is F, if set F, the function will plot go tree picture, which make cost much time
+                     #' @param GO_database character, GO_database, default is 'org.Hs.eg.db'
+                     #' @param KEGG_database character, KEGG_database, default is 'hsa'
+                     runENRICH = function(genelist.filter,
+                                          outdir,
+                                          glist.save = T,
+                                          rungo = T,
+                                          runkegg = T,
+                                          rapid = T,
+                                          GO_database = 'org.Hs.eg.db',
+                                          KEGG_database = 'hsa') {
+                         GO_database <- GO_database
+                         KEGG_database <- KEGG_database
+                         re <- private$lzENRICH(genelist.filter = genelist.filter,
+                                                outdir = outdir,
+                                                glist.save = glist.save,
+                                                rungo = rungo,
+                                                runkegg = runkegg,
+                                                rapid = rapid)
+                         return(re)
                      }
                  ),
                  private = list(
@@ -99,6 +126,31 @@ DEres <- R6Class("DEres",
                          gogenelist <- lapply(self$fc.list, function(x) DEG_prepareGOglist(self$resdf, logfc = x, p, fdr))
                          names(gogenelist) <- paste0("p", p, "q", fdr, "_FC.", names(gogenelist))
                          return(gogenelist)
+                     },
+                     lzENRICH = function(genelist.filter,
+                                          outdir,
+                                          glist.save = T,
+                                          rungo = T,
+                                          runkegg = T,
+                                          rapid = T) {
+                         if (!missing(genelist.filter)) {
+                             stopifnot(is.numeric(genelist.filter))
+                         }
+                         if (missing(genelist.filter)) {
+                             genelist <- list('default' = list(
+                                 'all' = self$glist.deg,
+                                 'up' = self$glist.deg.up,
+                                 'down' = self$glist.deg.down
+                             ))
+                         } else {
+                             genelist <- self$glist.deg.multi[genelist.filter]
+                         }
+                         enrich <- DEG_runENRICH(genelist = genelist,
+                                                 outdir = outdir,
+                                                 glist.save = glist.save,
+                                                 rungo = rungo, runkegg = runkegg,
+                                                 rapid = runkegg)
+                         return(enrich)
                      }
                  )
 )
