@@ -36,7 +36,7 @@ the first col: Type, rownames: samples}
 \itemize{
 \item \href{#method-DEeset-new}{\code{DEeset$new()}}
 \item \href{#method-DEeset-hello}{\code{DEeset$hello()}}
-\item \href{#method-DEeset-updateGroup}{\code{DEeset$updateGroup()}}
+\item \href{#method-DEeset-updateGroup_Eset}{\code{DEeset$updateGroup_Eset()}}
 \item \href{#method-DEeset-runDEG}{\code{DEeset$runDEG()}}
 \item \href{#method-DEeset-clone}{\code{DEeset$clone()}}
 }
@@ -82,16 +82,17 @@ test
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-DEeset-updateGroup"></a>}}
-\if{latex}{\out{\hypertarget{method-DEeset-updateGroup}{}}}
-\subsection{Method \code{updateGroup()}}{
+\if{html}{\out{<a id="method-DEeset-updateGroup_Eset"></a>}}
+\if{latex}{\out{\hypertarget{method-DEeset-updateGroup_Eset}{}}}
+\subsection{Method \code{updateGroup_Eset()}}{
 updateGroup
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DEeset$updateGroup(
+\if{html}{\out{<div class="r">}}\preformatted{DEeset$updateGroup_Eset(
   suffix1 = "01A",
   suffix2 = "11A",
-  endT = "Tumor",
-  endF = "Normal"
+  group1 = "Tumor",
+  group2 = "Normal",
+  method = 1
 )}\if{html}{\out{</div>}}
 }
 
@@ -102,9 +103,12 @@ updateGroup
 
 \item{\code{suffix2}}{character the match rule2: control group suffix}
 
-\item{\code{endT}}{character if match true}
+\item{\code{group1}}{character if match true}
 
-\item{\code{endF}}{character if match false}
+\item{\code{group2}}{character if match false}
+
+\item{\code{method}}{number, default is 1, \cr
+if method is not 1 will use the existed self$group to make eset2}
 }
 \if{html}{\out{</div>}}
 }

@@ -63,18 +63,20 @@ DEeset <- R6Class("DEeset",
                       #' @description updateGroup
                       #' @param suffix1 character the match rule1: treatment group suffix
                       #' @param suffix2 character the match rule2: control group suffix
-                      #' @param endT character if match true
-                      #' @param endF character if match false
+                      #' @param group1 character if match true
+                      #' @param group2 character if match false
+                      #' @param method number, default is 1, \cr
+                      #' if method is not 1 will use the existed self$group to make eset2
                       #' @return no return, just update object's field group
-                      updateGroup = function(suffix1 = "01A", suffix2 = "11A",
-                                             endT="Tumor", endF="Normal") {
-                          group <- private$esetMakeGroup(eset = self$eset,
-                                                         suffix1 = suffix1,
-                                                         suffix2 = suffix2,
-                                                         endT=endT, endF=endF)
-                          group <- dplyr::arrange(group, Type)
-                          self$group <- group
-                          self$eset2 <- self$eset[, rownames(group)]
+                      updateGroup_Eset = function(suffix1 = "01A", suffix2 = "11A",
+                                                  group1="Tumor", group2="Normal",
+                                                  method = 1) {
+                          private$esetMakeGroup(eset = self$eset,
+                                                suffix1 = suffix1,
+                                                suffix2 = suffix2,
+                                                group1= group1,
+                                                group2 = group2,
+                                                method = method)
                       },
                       #' DEG analysis pipleline
                       #' @description DEG analysis pipeline, DESeq2 deg analysis, plot pca, prepare GSEA
@@ -122,14 +124,20 @@ DEeset <- R6Class("DEeset",
                           }
                       },
                       esetMakeGroup = function(eset, suffix1 = "01A", suffix2 = "11A",
-                                               endT="Tumor", endF="Normal") {
-                          type <- ifelse(grepl(paste0("(", suffix1, "|", suffix2, ")$"), colnames(eset)), #endsWith(colnames(eset), suffix),
-                                         ifelse(grepl(paste0(suffix1, "$"), colnames(eset)), endT, endF), NA)
-                          group <- data.frame(row.names = colnames(eset),
-                                              Type = type, check.names = F)
-                          group <- na.omit(group)
-                          group$Type <- as.factor(group$Type)
-                          return(group)
+                                               group1="Tumor", group2="Normal", method = 1) {
+                          if (method == 1) {
+                              type <- ifelse(grepl(paste0("(", suffix1, "|", suffix2, ")$"), colnames(eset)), #endsWith(colnames(eset), suffix),
+                                             ifelse(grepl(paste0(suffix1, "$"), colnames(eset)), group1, group2), NA)
+                              group <- data.frame(row.names = colnames(eset),
+                                                  Type = type, check.names = F)
+                              group <- na.omit(group)
+                              group <- dplyr::arrange(group, Type)
+                              self$eset2 <- round(self$eset[, rownames(group)])
+                              group$Type <- as.factor(group$Type)
+                              self$group <- group
+                          } else {
+                              self$eset2 <- round(self$eset[, rownames(self$group)])
+                          }
                       },
                       deg_ana = function(f_mark = "DE", outdir = "result",
                                          pval, fdr, logfc,
