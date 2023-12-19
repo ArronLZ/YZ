@@ -128,6 +128,9 @@ DEeset <- R6Class("DEeset",
                           if (method == 1) {
                               type <- ifelse(grepl(paste0("(", suffix1, "|", suffix2, ")$"), colnames(eset)), #endsWith(colnames(eset), suffix),
                                              ifelse(grepl(paste0(suffix1, "$"), colnames(eset)), group1, group2), NA)
+                              if (sum(is.na(type)) > 1) {
+                                  stop("suffix或和group参数设置正确，或者method参数设置不正确")
+                              }
                               group <- data.frame(row.names = colnames(eset),
                                                   Type = type, check.names = F)
                               group <- na.omit(group)
