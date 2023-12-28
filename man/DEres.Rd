@@ -14,6 +14,8 @@ Jiang
 \describe{
 \item{\code{resdf}}{data.frame, all gene diff analysis result}
 
+\item{\code{filter.record}}{character, DEG analysis default criterion[p<0.05,q<0.1,abs(logfc)>1] => 'p0.05;q0.1;logfc1'}
+
 \item{\code{glist.deg}}{character vector, the significant deg(default criterion[p<0.05,q<0.1,abs(logfc)>1])}
 
 \item{\code{glist.deg.up}}{character vector, the significant up deg(default criterion[p<0.05,q<0.1,logfc>1])}
@@ -51,6 +53,7 @@ Create a new DEres object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{DEres$new(
   resdf,
+  filter.record,
   glist.deg,
   glist.deg.up,
   glist.deg.down,
@@ -64,6 +67,8 @@ Create a new DEres object.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{resdf}}{data.frame, all gene diff analysis result}
+
+\item{\code{filter.record}}{character, DEG analysis default criterion[p<0.05,q<0.1,abs(logfc)>1] => 'p0.05;q0.1;logfc1'}
 
 \item{\code{glist.deg}}{character vector, the significant deg(default criterion[p<0.05,q<0.1,abs(logfc)>1])}
 
@@ -86,9 +91,28 @@ Create a new DEres object.
 \subsection{Method \code{update.glist.deg.multi()}}{
 update field glist.deg.multi
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DEres$update.glist.deg.multi()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DEres$update.glist.deg.multi(
+  p = 0.05,
+  fdr = 0.1,
+  fc.list = self$fc.list,
+  return = FALSE
+)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{p}}{number, pvalue}
+
+\item{\code{fdr}}{number, fdr}
+
+\item{\code{fc.list}}{list, fc name list,default is field fc.list: list('1.2' = log2(1.2), '1.5' = log2(1.5),
+'2' = log2(2), '4' = log2(4), '8' = log2(8))}
+
+\item{\code{return}}{logical, deafault is FALSE if return result or not}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DEres-pic.valcano"></a>}}

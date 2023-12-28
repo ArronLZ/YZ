@@ -9,6 +9,8 @@ DEres <- R6Class("DEres",
                  public = list(
                      #' @field resdf data.frame, all gene diff analysis result
                      resdf = NA,
+                     #' @field filter.record character, DEG analysis default criterion[p<0.05,q<0.1,abs(logfc)>1] => 'p0.05;q0.1;logfc1'
+                     filter.record = NA,
                      #' @field glist.deg character vector, the significant deg(default criterion[p<0.05,q<0.1,abs(logfc)>1])
                      glist.deg = NA,
                      #' @field glist.deg.up character vector, the significant up deg(default criterion[p<0.05,q<0.1,logfc>1])
@@ -29,16 +31,18 @@ DEres <- R6Class("DEres",
 
                      #' @description Create a new DEres object.
                      #' @param resdf data.frame, all gene diff analysis result
+                     #' @param filter.record character, DEG analysis default criterion[p<0.05,q<0.1,abs(logfc)>1] => 'p0.05;q0.1;logfc1'
                      #' @param glist.deg character vector, the significant deg(default criterion[p<0.05,q<0.1,abs(logfc)>1])
                      #' @param glist.deg.up character vector, the significant up deg(default criterion[p<0.05,q<0.1,logfc>1])
                      #' @param glist.deg.down character vector, the significant down deg(default criterion[p<0.05,q<0.1,logfc<-1])
                      #' @param fc.list list, different fold change,  list('1.2' = log2(1.2), '1.5' = log2(1.5), '2' = log2(2), '4' = log2(4), '8' = log2(8) )
                      #' @param glist.gsea name list, the all gene name list(name is genename, value is the log2FC)
                      #' @param ddslist list, the diff analysis original result, the father of all_father
-                     initialize = function(resdf, glist.deg, glist.deg.up,
+                     initialize = function(resdf, filter.record, glist.deg, glist.deg.up,
                                            glist.deg.down, fc.list, glist.gsea,
                                            ddslist) {
                          self$resdf <- resdf
+                         self$filter.record <- filter.record
                          self$glist.deg <- glist.deg
                          self$glist.deg.up <- glist.deg.up
                          self$glist.deg.down <- glist.deg.down
@@ -47,11 +51,21 @@ DEres <- R6Class("DEres",
                          self$ddslist <- ddslist
                      },
                      #' @description update field glist.deg.multi
-                     update.glist.deg.multi = function() {
-                         g1 <- private$makeglist.multi(p = 0.05, fdr = 0.1)
-                         g2 <- private$makeglist.multi(p = 0.05, fdr = 0.05)
-                         g3 <- private$makeglist.multi(p = 0.01, fdr = 0.01)
-                         self$glist.deg.multi <- c(g1, g2, g3)
+                     #' @param p number, pvalue
+                     #' @param fdr number, fdr
+                     #' @param fc.list list, fc name list,default is field fc.list: list('1.2' = log2(1.2), '1.5' = log2(1.5),
+                     #' '2' = log2(2), '4' = log2(4), '8' = log2(8))
+                     #' @param return logical, deafault is FALSE if return result or not
+                     update.glist.deg.multi = function(p = 0.05, fdr = 0.1,
+                                                       fc.list =  self$fc.list,
+                                                       return = FALSE) {
+                         # list('1.2' = log2(1.2), '1.5' = log2(1.5))
+                         g1 <- private$makeglist.multi(p = p, fdr = fdr, fc.list =  fc.list)
+                         self$glist.deg.multi <- g1
+                         if( return ) { return(g1) }
+                         #g2 <- private$makeglist.multi(p = 0.05, fdr = 0.05)
+                         #g3 <- private$makeglist.multi(p = 0.01, fdr = 0.01)
+                         #self$glist.deg.multi <- c(g1, g2, g3)
                      },
                      #' @description plot valcano with mask gene using valcano2
                      #' @param filterc character the way of show picture
@@ -125,8 +139,9 @@ DEres <- R6Class("DEres",
                      }
                  ),
                  private = list(
-                     makeglist.multi = function(p = 0.05, fdr = 0.1) {
-                         gogenelist <- lapply(self$fc.list, function(x) DEG_prepareGOglist(self$resdf, logfc = x, p, fdr))
+                     makeglist.multi = function(p = 0.05, fdr = 0.1,
+                                                fc.list =  list('1.2' = log2(1.2), '1.5' = log2(1.5))) {
+                         gogenelist <- lapply(fc.list, function(x) DEG_prepareGOglist(self$resdf, logfc = x, p, fdr))
                          names(gogenelist) <- paste0("p", p, "q", fdr, "_FC.", names(gogenelist))
                          return(gogenelist)
                      },

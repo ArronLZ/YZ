@@ -103,6 +103,7 @@ DEeset <- R6Class("DEeset",
                                                         method = method,
                                                         coef = coef)
                           DEres <- DEres$new(resdf = res_deg_ana$DIFF.ALL,
+                                             filter.record = paste("p", pval, ";q", fdr, ";logfc", logfc),
                                              glist.deg = res_deg_ana$DEG.ALL$DEG.ALL,
                                              glist.deg.up = res_deg_ana$UP$UP,
                                              glist.deg.down = res_deg_ana$DOWN$DOWN,
