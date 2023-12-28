@@ -142,7 +142,7 @@ DEres <- R6Class("DEres",
                      makeglist.multi = function(p = 0.05, fdr = 0.1,
                                                 fc.list =  list('1.2' = log2(1.2), '1.5' = log2(1.5))) {
                          gogenelist <- lapply(fc.list, function(x) DEG_prepareGOglist(self$resdf, logfc = x, p, fdr))
-                         names(gogenelist) <- paste0("p", p, "q", fdr, "_FC.", names(gogenelist))
+                         names(gogenelist) <- paste0("p", p, "q", fdr, "FC", names(gogenelist))
                          return(gogenelist)
                      },
                      lzENRICH = function(genelist.filter,
@@ -159,11 +159,13 @@ DEres <- R6Class("DEres",
                              stopifnot(is.numeric(genelist.filter))
                          }
                          if (missing(genelist.filter)) {
-                             genelist <- list('default' = list(
+                             genelist <- list()
+                             # genelist <- list('default' = )
+                             genelist[[self$filter.record]] <- list(
                                  'all' = self$glist.deg,
                                  'up' = self$glist.deg.up,
                                  'down' = self$glist.deg.down
-                             ))
+                             )
                          } else {
                              genelist <- self$glist.deg.multi[genelist.filter]
                          }
