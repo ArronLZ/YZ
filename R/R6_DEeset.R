@@ -5,6 +5,7 @@
 #' @importFrom LZ DEG_DESeq2.pca
 #' @importFrom LZ DEG_DESeq2.ana
 #' @importFrom LZ DEGres_ToRICH
+#' @importFrom LZ limma.general
 #' @importFrom dplyr arrange
 #' @include R6_DEres.R
 #' @export
@@ -164,6 +165,10 @@ DEeset <- R6Class("DEeset",
                           }
                           if (method == "voom") {
                               dds_list <- DEG_voom(glist, pval=pval, fdr=fdr, logfc=logfc)
+                          }
+                          if (method == "limma") {
+                              dds_list <- limma.general(self$eset2, self$group,
+                                                        pval=pval, fdr=fdr, logfc=logfc)
                           }
                           # 差异后分析
                           all_father <- DEGres_ToRICH(diffan.obj = dds_list,

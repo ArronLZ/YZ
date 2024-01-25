@@ -1,6 +1,6 @@
 Package: YZ
 Title: The pipeline of Tumor Survival information relatead analysis and shiny web
-Version: 0.0.5
+Version: 0.0.6
 Date: `Sys.Date()`
 Author: LZ
 Maintainer: Turkey <earth_farmer@outlook.com>
