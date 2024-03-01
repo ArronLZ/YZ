@@ -87,7 +87,9 @@ DEeset <- R6Class("DEeset",
                       #' @param pval number criteria of DEG analysis: Pvalue, defaut is 0.05
                       #' @param fdr number criteria of DEG analysis: FDR/Qvalue, defaut is 0.1
                       #' @param logfc  number criteria of DEG analysis: log2FC, defaut is 1
-                      #' @param method  character deg analysis method, default is "deseq2", can also be "edger" or "voom"
+                      #' @param method  character deg analysis method, default is "deseq2", can also be "edger" or "voom",\cr
+                      #' if you data is microchip data, you can also use "limma"
+                      #'
                       #' @param coef  number default is 2, do not modify this parameter unless you know what you are doing!
                       #' @return a list (deg analysis)
                       runDEG = function(f_mark = "DE", outdir = "result",

@@ -148,7 +148,8 @@ it will be used for subdir of outdir or filename}
 
 \item{\code{logfc}}{number criteria of DEG analysis: log2FC, defaut is 1}
 
-\item{\code{method}}{character deg analysis method, default is "deseq2", can also be "edger" or "voom"}
+\item{\code{method}}{character deg analysis method, default is "deseq2", can also be "edger" or "voom",\cr
+if you data is microchip data, you can also use "limma"}
 
 \item{\code{coef}}{number default is 2, do not modify this parameter unless you know what you are doing!}
 }
