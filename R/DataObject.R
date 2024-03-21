@@ -1,5 +1,5 @@
 #' Set an new DataClass(environment)
-#' @description Set an new environment to store important data in a project
+#' @description Set an new environment to store important data in a project.
 #' @param class character class name
 #' @return enviroment(DataClass)
 #' @export
